@@ -30,7 +30,7 @@ on:
               GOODLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
           - name: Terraform Apply
-            if github.ref == 'refs/heads/master' &&  github.event_name == 'push'
+            if: github.ref == 'refs/heads/master' &&  github.event_name == 'push'
             run: terrform apply
             env:
               GOODLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
