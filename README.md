@@ -1,2 +1,2 @@
 # DjangoProj-1
-My first django project
+github actions learning
