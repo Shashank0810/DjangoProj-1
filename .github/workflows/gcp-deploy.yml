@@ -1,0 +1,37 @@
+name: gcloud
+on:
+  - pull_request:
+      branches:
+        - master
+    
+    jobs:
+      cloud-deploy:
+        name: terraform-cloud-gcp
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+          
+          - name: Setup Terraform
+            uses: hashicorp/setup-terraform@v1
+
+          - name: Terraform init
+            run: terraform init
+            env:
+              GOODLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+          - name: Terrafrom Format
+            run: terraform fmt -check
+          
+          - name: Terraform Plan
+            run: terraform plan
+            env:
+              GOODLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+          - name: Terraform Apply
+            if github.ref == 'refs/heads/master' &&  github.event_name == 'push'
+            run: terrform apply
+            env:
+              GOODLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
