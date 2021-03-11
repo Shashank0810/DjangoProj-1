@@ -49,7 +49,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: serverless deploy
-      run: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy
       env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       
